@@ -103,125 +103,6 @@ VITE_API_URL=http://localhost:5000/api
 VITE_SOCKET_URL=http://localhost:5000
 ```
 
-## API Documentation
-
-All private routes require:
-
-```http
-Authorization: Bearer <jwt>
-```
-
-### Auth
-
-| Method | Endpoint | Body | Description |
-| --- | --- | --- | --- |
-| POST | `/api/auth/register` | `name, username, email, password` | Create account |
-| POST | `/api/auth/login` | `email, password` | Login |
-| GET | `/api/auth/me` | none | Current user |
-
-### Users
-
-| Method | Endpoint | Body | Description |
-| --- | --- | --- | --- |
-| GET | `/api/users/search?q=ridham` | none | Search users |
-| GET | `/api/users/saved` | none | Saved posts |
-| GET | `/api/users/:username` | none | Profile, followers, following, posts |
-| PATCH | `/api/users/profile` | multipart `avatar`, `name`, `bio`, `website`, `location` | Update profile |
-| POST | `/api/users/:id/follow` | none | Follow user |
-| DELETE | `/api/users/:id/follow` | none | Unfollow user |
-
-### Posts and Comments
-
-| Method | Endpoint | Body | Description |
-| --- | --- | --- | --- |
-| GET | `/api/posts/feed` | none | Follow-prioritized feed |
-| GET | `/api/posts/explore` | none | Recent public posts |
-| POST | `/api/posts` | multipart `image`, `caption` | Create image or video post |
-| PATCH | `/api/posts/:id` | `caption` | Edit caption |
-| DELETE | `/api/posts/:id` | none | Delete own post |
-| POST | `/api/posts/:id/like` | none | Toggle like |
-| POST | `/api/posts/:id/comments` | `text` | Add comment |
-| DELETE | `/api/posts/:postId/comments/:commentId` | none | Delete comment |
-| POST | `/api/posts/:id/save` | none | Toggle save |
-| POST | `/api/posts/:id/share` | none | Increment share count and return URL |
-| POST | `/api/posts/:id/repost` | none | Increment repost count |
-
-### Notifications
-
-| Method | Endpoint | Body | Description |
-| --- | --- | --- | --- |
-| GET | `/api/notifications` | none | List notifications |
-| PATCH | `/api/notifications/read` | none | Mark all as read |
-
-## Database Relationships
-
-```txt
-User
-├── followers: [User._id]
-├── following: [User._id]
-├── savedPosts: [Post._id]
-└── owns many Posts
-
-Post
-├── author: User._id
-├── likes: [User._id]
-└── comments: [{ user: User._id, text }]
-
-Notification
-├── receiver: User._id
-├── sender: User._id
-└── post: Post._id optional
-```
-
-## ER Diagram
-
-```mermaid
-erDiagram
-  USER ||--o{ POST : creates
-  USER }o--o{ USER : follows
-  USER }o--o{ POST : saves
-  USER }o--o{ POST : likes
-  USER ||--o{ COMMENT : writes
-  POST ||--o{ COMMENT : contains
-  USER ||--o{ NOTIFICATION : receives
-  USER ||--o{ NOTIFICATION : sends
-  POST ||--o{ NOTIFICATION : references
-
-  USER {
-    ObjectId _id
-    string name
-    string username
-    string email
-    string password
-    object avatar
-    string bio
-    array followers
-    array following
-    array savedPosts
-  }
-
-  POST {
-    ObjectId _id
-    ObjectId author
-    object image
-    string mediaType
-    string caption
-    array likes
-    array comments
-    number shareCount
-    number repostCount
-  }
-
-  NOTIFICATION {
-    ObjectId _id
-    ObjectId receiver
-    ObjectId sender
-    string type
-    ObjectId post
-    boolean read
-  }
-```
-
 ## Deployment
 
 ### Render Backend
@@ -229,20 +110,15 @@ erDiagram
 - Root directory: `backend`
 - Build command: `npm install`
 - Start command: `npm start`
-- Add backend environment variables from your local `backend/.env`
-- Set `CLIENT_URL` to your deployed Vercel URL
 
 ### Vercel Frontend
 
 - Root directory: `frontend`
 - Build command: `npm run build`
 - Output directory: `dist`
-- Add:
-  - `VITE_API_URL=https://your-render-app.onrender.com/api`
-  - `VITE_SOCKET_URL=https://your-render-app.onrender.com`
 
 ## Notes
 
 - MongoDB Atlas must allow your Render server IP or use `0.0.0.0/0` for project/demo access.
-- Cloudinary unsigned uploads are not used; uploads go through the protected backend with Multer and Cloudinary credentials.
-- Socket.io currently powers live notification toasts and can be extended into chat.
+- Cloudinary uploads are handled through the backend.
+- Socket.io can be extended for real-time chat.
