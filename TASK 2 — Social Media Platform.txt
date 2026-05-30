@@ -1,0 +1,45 @@
+✅ TASK 2 — Social Media Platform
+
+Goal
+
+Build mini Instagram/Facebook.
+
+Features
+User profiles
+Create posts
+Like posts
+Comments
+Follow users
+Main Learning
+
+You will learn:
+
+Social relationships in database
+Feed systems
+Authentication
+Image uploads
+Recommended Stack
+Frontend
+React
+Backend
+Node + Express
+Database
+MongoDB
+Collections Needed
+Users
+{
+  username,
+  followers,
+  following
+}
+Posts
+{
+  image,
+  caption,
+  likes
+}
+Comments
+{
+  user,
+  text
+}

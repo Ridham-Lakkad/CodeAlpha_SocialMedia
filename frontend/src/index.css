@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+@layer components {
+  .page-shell {
+    @apply mx-auto w-full max-w-6xl px-4 pb-24 pt-5 md:px-6 md:pb-10 md:pt-8;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow, 0 18px 45px rgba(22,22,22,0.08));
+    backdrop-filter: blur(6px);
+    border-radius: 14px;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60;
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition;
+    border: 1px solid var(--border);
+    background: var(--btn-secondary-bg);
+    color: var(--btn-secondary-text);
+  }
+
+  .input {
+    @apply w-full rounded-xl px-3 py-2.5 text-sm outline-none transition;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text);
+    placeholder-color: var(--muted);
+    caret-color: var(--accent);
+  }
+
+  .icon-btn {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-xl transition;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid transparent;
+  }
+
+  .icon-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--border-hover);
+  }
+
+  .eyebrow {
+    @apply text-xs font-black uppercase tracking-[0.18em] text-brand;
+  }
+}
+
+/* Theme variables */
+:root {
+  --bg: #05080c;
+  --panel: #0d1218;
+  --text: #f8fafc;
+  --muted: #9aa7b8;
+  --border: rgba(255,255,255,0.08);
+  --input-bg: #05080c;
+  --input-border: rgba(255,255,255,0.06);
+  --btn-primary-bg: #14b8a6;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: rgba(255,255,255,0.03);
+  --btn-secondary-text: #ffffff;
+  --hover-bg: rgba(255,255,255,0.04);
+  --border-hover: rgba(255,255,255,0.12);
+  --accent: #22d3ee;
+  --link: #38bdf8;
+  --link-hover: #7dd3fc;
+  --nav-text: #d8dee8;
+  --nav-active: #ffffff;
+  --story-create-bg: rgba(34,211,238,0.1);
+  --story-create-border: #22d3ee;
+  --story-create-text: #67e8f9;
+  --story-gradient: linear-gradient(135deg,#22d3ee,#14b8a6,#a78bfa);
+  --avatar-ring-border: var(--panel);
+}
+
+/* Light theme */
+.light {
+  --bg: #f3f5f7;
+  --panel: #ffffff;
+  --text: #111827;
+  --muted: #5f6b7a;
+  --border: rgba(17,24,39,0.1);
+  --input-bg: #ffffff;
+  --input-border: rgba(17,24,39,0.12);
+  --btn-primary-bg: #0f766e;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: rgba(17,24,39,0.06);
+  --btn-secondary-text: #111827;
+  --hover-bg: rgba(15,118,110,0.08);
+  --border-hover: rgba(15,118,110,0.24);
+  --accent: #0f766e;
+  --link: #0f766e;
+  --link-hover: #115e59;
+  --nav-text: #374151;
+  --nav-active: #0f766e;
+  --story-create-bg: rgba(20,184,166,0.08);
+  --story-create-border: #14b8a6;
+  --story-create-text: #0f766e;
+  --story-gradient: linear-gradient(135deg,#06b6d4,#14b8a6,#6366f1);
+  --avatar-ring-border: #ffffff;
+}
+
+/* Dark class for explicitness (defaults to root already dark) */
+.dark {
+  --bg: #05080c;
+  --panel: #0d1218;
+  --text: #f8fafc;
+  --muted: #9aa7b8;
+  --border: rgba(255,255,255,0.08);
+  --input-bg: #05080c;
+  --input-border: rgba(255,255,255,0.06);
+  --btn-primary-bg: #14b8a6;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: rgba(255,255,255,0.03);
+  --btn-secondary-text: #ffffff;
+  --hover-bg: rgba(255,255,255,0.04);
+  --border-hover: rgba(255,255,255,0.12);
+  --accent: #22d3ee;
+  --link: #38bdf8;
+  --link-hover: #7dd3fc;
+  --nav-text: #d8dee8;
+  --nav-active: #ffffff;
+  --story-create-bg: rgba(34,211,238,0.1);
+  --story-create-border: #22d3ee;
+  --story-create-text: #67e8f9;
+  --story-gradient: linear-gradient(135deg,#22d3ee,#14b8a6,#a78bfa);
+  --avatar-ring-border: var(--panel);
+}
